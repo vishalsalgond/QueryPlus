@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{% static 'main_app/logo.png' %}" type="image/icon type">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'main_app/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'main_app/footer.css' %}">
+
+    {% if title %}
+        <title>QueryPlus - {{ title }}</title>
+    {% else %}
+        <title>QueryPlus</title>
+    {% endif %}
+</head>
+<body>
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+        <div class="container">
+          <img src="{% static 'main_app/logo.png' %}" width="25" height="25" class="d-inline-block align-top" alt="">
+          <a class="navbar-brand mr-4 ml-2" href="{% url 'home' %}">QueryPlus</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+              <a class="nav-item nav-link" href="#">About</a>
+            </div>
+             <!-- Navbar Right Side -->
+             <div class="navbar-nav">
+              {% if user.is_authenticated %}
+              <div class="row mr-3 ml-1">
+                <img class="rounded-circle mt-1" height=30 width=30 src="{{ user.profile.image.url }}">
+                <a class="nav-item nav-link ml-2" href="{% url 'profile' %}">{{ user.username }}</a>
+              </div>
+                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+              {% endif %}
+
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+
+
+          {% block content %}
+          {% endblock %}
+
+          
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-4">
+          <ul class="list-group bg-light">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a class="nav-item nav-link" href="#">Groups</a>
+              <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a class="nav-item nav-link" href="#">Your Questions</a>
+              <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a class="nav-item nav-link" href="#">Your Answers</a>
+              <span class="badge badge-primary badge-pill">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a class="nav-item nav-link" href="#">Ask a Question</a>
+            </li>
+          </ul>
+
+        </div>
+        {% endif %}
+      </div>
+    </main>
+
+    <footer class="footer">
+        <div class="bg-light text-center" style="width: 100%;" >
+          <span class="text-dark">© 2020 Copyright : </span>
+          <a class="text-primary" href="">QueryPlus.com</a>
+        </div>
+      </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

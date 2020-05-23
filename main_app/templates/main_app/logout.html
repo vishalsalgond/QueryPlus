@@ -1,0 +1,17 @@
+{% extends "main_app/base.html" %}
+{% block content %}
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Logged out!</h4>
+        <p>You have been succeessfully logged out.</p>
+        <hr>
+        <p class="mb-0">Click the link below to Log In again.</p>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                <a href="{% url 'login' %}">Log In Again</a>
+            </small>
+        </div>
+    </div>
+    <div class="border-top pt-3">
+        <a class="btn btn-primary mt-1 mb-1" href="{% url 'home' %}">Back to home page</a>
+    </div>
+{% endblock content %}
