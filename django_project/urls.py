@@ -19,14 +19,28 @@ from main_app import views as main_views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from main_app.views import (QuestionCreateView, 
+                            QuestionDetailView, 
+                            QuestionListView, 
+                            QuestionDeleteView,
+                            AnswerDeleteView,
+                            AnswerUpdateView,
+                            QuestionUpdateView)
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', main_views.home, name='home'),
+    path('', QuestionListView.as_view(), name='home'),
     path('profile/', main_views.profile, name='profile'),
     path('register/', main_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='main_app/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='main_app/logout.html'), name='logout'),
+    path('question/new/', QuestionCreateView.as_view(), name='question-create'), 
+    path('question/<int:pk>/', QuestionDetailView.as_view(), name='question-detail'), 
+    path('question/<int:pk>/delete/', QuestionDeleteView.as_view(), name='question-delete'), 
+    path('question/<int:pk>/update/', QuestionUpdateView.as_view(), name='question-update'), 
+    path('answer/<int:pk>/update/', AnswerUpdateView.as_view(), name='answer-update'), 
+    path('answer/<int:pk>/delete/', AnswerDeleteView.as_view(), name='answer-delete'), 
 ]
 
 if settings.DEBUG:

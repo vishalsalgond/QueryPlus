@@ -1,7 +1,12 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, AnswerForm
+from .models import Question, Answer
+import datetime
 
 def home(request):
     return render(request, 'main_app/home.html')
@@ -41,3 +46,99 @@ def profile(request):
     }
 
     return render(request, 'main_app/profile.html', context)
+
+class QuestionListView(ListView):
+    model = Question
+    template_name = 'main_app/home.html'
+    context_object_name = 'questions'
+    ordering = ['-date_posted']
+    paginate_by = 5
+
+class QuestionCreateView(LoginRequiredMixin,CreateView):
+    model = Question
+    fields = ['question']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class QuestionDetailView(DetailView):
+
+    model = Question
+
+    def post(self, request, pk, **kwargs):
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            form.instance.author = self.request.user
+            form.instance.answered_to = Question.objects.get(id=pk)
+            form.save()
+            messages.success(request, f'Your answer has been posted!')
+            return redirect('question-detail', pk)
+
+    def get_context_data(self, *args, **kwargs): 
+        context = super(QuestionDetailView, 
+             self).get_context_data(*args, **kwargs) 
+        # add extra fields here  
+        context["form"] = AnswerForm()
+        context["answers"] = Answer.objects.filter(answered_to=context["question"])
+        context["count"] =  Answer.objects.filter(answered_to=context["question"]).count()
+        return context 
+    
+   
+
+class QuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Question
+    success_url = "/"
+    
+    def test_func(self):
+        post = self.get_object()
+
+        if self.request.user == post.author:
+            return True
+        else:
+            False
+
+class QuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Question
+    fields = ['question']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+
+        if self.request.user == post.author:
+            return True
+        else:
+            False
+
+class AnswerDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Answer
+    success_url = "/"
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        else:
+            False
+
+class AnswerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Answer
+    fields = ['content']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+
+        if self.request.user == post.author:
+            return True
+        else:
+            False
+
+

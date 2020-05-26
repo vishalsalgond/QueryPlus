@@ -1,0 +1,72 @@
+{% extends "main_app/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <!-- Question content -->
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
+        <div class="media-body">
+        <div class="article-metadata">
+            <a class="mr-1" href="">{{ question.author }}</a>
+            <small class="text-muted">asked {{ question.date_posted|timesince }} ago</small>
+            {% if question.author == user %}
+                <div>
+                    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'question-update' object.id %}">Edit</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'question-delete' object.id %}">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+            <h2 class="article-title">{{ question.question }}</h2>
+        </div>
+    </article>
+    <!-- Answers content -->
+    <h2>Answers</h2>
+    {% if count  %}
+        <!-- show this if there is at least one answer -->
+        {% for ans in answers %}
+            <article class="media content-section">
+                <img class="rounded-circle article-img" src="{{ ans.author.profile.image.url }}" alt="">
+                <div class="media-body">
+                <div class="article-metadata">
+                    <a class="mr-1" href="">{{ ans.author }}</a>
+                    <small class="text-muted">answered {{ ans.date_posted|timesince }} ago</small>
+                    {% if ans.author == user %}
+                    <div>
+                        <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'answer-update' ans.id %}">Edit</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'answer-delete' ans.id %}">Delete</a>
+                    </div>
+                {% endif %}
+                </div>
+                <p>{{ ans.content }}</p>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <!-- if there are no answers then show this -->
+        <div class="mb-5 mt-5">
+            <h5 class="text-muted">Sorry, No answers found !
+                <svg class="bi bi-emoji-frown" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path fill-rule="evenodd" d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"/>
+                    <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
+                </svg>
+            </h5>
+        </div>
+    {% endif %}
+    
+    <!-- Form for answer -->
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            {% if count  %}
+                <legend class="border-bottom mb-4"><h3>Write Your Answer</h3></legend>
+            {% else %}
+                <legend class="border-bottom mb-4"><h4>Be the first one to Answer</h4></legend>
+            {% endif %}
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Post Your Answer</button>
+        </div>
+    </form>
+    <a class="btn btn-primary mt-2 mb-2" href="{% url 'home' %}">Back to Home Page</a>
+{% endblock content %}

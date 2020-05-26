@@ -1,39 +1,57 @@
 {% extends "main_app/base.html" %}
 {% load static %}
 {% block content %}
-<div class="jumbotron bg-dark text-light">
-        <div class="row mt-0" >
-            <h1 class="mt-4 p-4 text-light">Hello <br> Developers!</h1>
-            <img src="{% static 'main_app/avatar.png' %}" alt="image" width="200px", height="200px">
+
+  {% if user.is_authenticated %}
+  <h4 class="display-4">Recent Questions</h4>
+  <br>
+    {% for q in questions %}
+      <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ q.author.profile.image.url }}" alt="">
+          <div class="media-body">
+          <div class="article-metadata">
+              <a class="mr-1" href="">{{ q.author }}</a>
+              <small class="text-muted">asked a question {{ q.date_posted|timesince }} ago</small>
+          </div>
+            <h4><a class="article-title" href="{% url 'question-detail' q.id %}">{{ q.question }}</a></h4>
+          </div>
+      </article>
+    {% endfor %}
+  {% else %}
+    <div class="jumbotron bg-dark text-light">
+            <div class="row mt-0" >
+                <h1 class="mt-4 p-4 text-light">Hello <br> Developers!</h1>
+                <img src="{% static 'main_app/avatar.png' %}" alt="image" width="200px", height="200px">
+            </div>
+
+      <p class="lead mt-3">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+      <hr class="my-4 bg-light">
+      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col">
+        <div class="card p-2 mb-2" style="width: 20rem; height: 27rem;">
+          <img src="{% static 'main_app/card1.jpg' %}" class="card-img-top" alt="..." height="200px">
+          <div class="card-body mb-3">
+            <h5 class="card-title">Join the community</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Learn More</a>
+          </div>
         </div>
-
-  <p class="lead mt-3">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  <hr class="my-4 bg-light">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-</div>
-
-<div class="row mb-5">
-    <div class="col">
-    <div class="card p-2 mb-2" style="width: 20rem; height: 27rem;">
-      <img src="{% static 'main_app/card1.jpg' %}" class="card-img-top" alt="..." height="200px">
-      <div class="card-body mb-3">
-        <h5 class="card-title">Join the community</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Learn More</a>
-      </div>
     </div>
-</div>
-    <div class="col">
-    <div class="card p-2 mb2" style="width: 20rem; height: 27rem;">
-      <img src="{% static 'main_app/card2.png' %}" class="card-img-top" alt="..." height="150px">
-      <div class="card-body mt-5">
-        <h5 class="card-title">Get help</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Learn More</a>
-      </div>
+        <div class="col">
+        <div class="card p-2 mb2" style="width: 20rem; height: 27rem;">
+          <img src="{% static 'main_app/card2.png' %}" class="card-img-top" alt="..." height="150px">
+          <div class="card-body mt-5">
+            <h5 class="card-title">Get help</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Learn More</a>
+          </div>
+        </div>
     </div>
-</div>
-</div>
+    </div>
+  {% endif %}
 
 {% endblock content %}

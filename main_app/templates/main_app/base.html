@@ -72,7 +72,7 @@
           <ul class="list-group bg-light mb-4">
             <li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
               <a class="nav-item nav-link text-light" href="#">Groups</a>
-              <span class="badge badge-primary badge-pill">14</span>
+              <span class="badge badge-primary badge-pill">3</span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
               <a class="nav-item nav-link text-light" href="#">Your Questions</a>
@@ -83,11 +83,11 @@
               <span class="badge badge-primary badge-pill">1</span>
             </li>
            
-              <a class="btn btn-primary p-2 mt-3 text-light" href="#">Ask a Question</a>
+              <a class="btn btn-primary p-2 mt-3 text-light" href="{% url 'question-create' %}">Ask a Question</a>
             
           </ul>
 
-          <div class="list-group">
+          <!-- <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">List group item heading</h5>
@@ -112,7 +112,7 @@
               <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
               <small class="text-muted">Donec id elit non mi porta.</small>
             </a>
-          </div>
+          </div> -->
 
         </div>
         {% endif %}
