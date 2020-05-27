@@ -13,7 +13,7 @@
               <a class="mr-1" href="">{{ q.author }}</a>
               <small class="text-muted">asked a question {{ q.date_posted|timesince }} ago</small>
           </div>
-            <h4><a class="article-title" href="{% url 'question-detail' q.id %}">{{ q.question }}</a></h4>
+            <h4><a class="article-title" href="{% url 'question-detail' q.id %}">{{ q.question|safe }}</a></h4>
           </div>
       </article>
     {% endfor %}
@@ -37,7 +37,7 @@
           <div class="card-body mb-3">
             <h5 class="card-title">Join the community</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Learn More</a>
+            <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
           </div>
         </div>
     </div>

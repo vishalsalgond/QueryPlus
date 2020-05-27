@@ -24,7 +24,7 @@
                 </div>
             {% endif %}
         </div>
-            <h2 class="article-title">{{ question.question }}</h2>
+            <h2 class="article-title">{{ question.question|safe }}</h2>
         </div>
     </article>
     <!-- Answers content -->
@@ -54,7 +54,7 @@
                     </div>
                 {% endif %}
                 </div>
-                <p>{{ ans.content }}</p>
+                <p>{{ ans.content|safe }}</p>
                 </div>
             </article>
         {% endfor %}
