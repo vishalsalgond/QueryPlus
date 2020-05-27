@@ -4,6 +4,7 @@ from PIL import Image
 from django.utils import timezone
 timezone.localtime(timezone.now())
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -34,7 +35,7 @@ class Question(models.Model):
         return reverse('home')
 
 class Answer(models.Model):
-    content = models.TextField()
+    content = RichTextField(blank=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     answered_to = models.ForeignKey(Question, on_delete=models.CASCADE)

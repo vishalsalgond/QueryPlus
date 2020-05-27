@@ -8,8 +8,8 @@ from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, AnswerFo
 from .models import Question, Answer
 import datetime
 
-def home(request):
-    return render(request, 'main_app/home.html')
+# def home(request):
+#     return render(request, 'main_app/home.html')
 
 def register(request):
     if request.method == 'POST':
@@ -53,6 +53,7 @@ class QuestionListView(ListView):
     context_object_name = 'questions'
     ordering = ['-date_posted']
     paginate_by = 5
+
 
 class QuestionCreateView(LoginRequiredMixin,CreateView):
     model = Question
