@@ -5,7 +5,8 @@ from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, AnswerForm
-from .models import Question, Answer
+from .models import Question, Answer, User
+from django.db.models import Count
 import datetime
 
 # def home(request):
@@ -53,6 +54,10 @@ class QuestionListView(ListView):
     context_object_name = 'questions'
     ordering = ['-date_posted']
     paginate_by = 5
+
+    # def post(self, request):
+    #     pass
+
 
 
 class QuestionCreateView(LoginRequiredMixin,CreateView):
@@ -141,5 +146,15 @@ class AnswerUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         else:
             False
+
+class UserListView(ListView):
+    model = Question
+    template_name = 'main_app/user_profile.html'
+    context_object_name = 'questions'
+    paginate_by = 5
+
+    def get_queryset(self, **kwargs):
+        user = get_object_or_404(User, username=self.kwargs.get('username','first_name'))
+        return Question.objects.filter(author=user).order_by('-date_posted')
 
 

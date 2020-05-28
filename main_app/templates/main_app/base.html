@@ -7,11 +7,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="{% static 'main_app/logo.png' %}" type="image/icon type">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/footer.css' %}">
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/zenburn.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
 
     {% if title %}
         <title>QueryPlus - {{ title }}</title>
@@ -37,15 +42,14 @@
              <div class="navbar-nav">
               {% if user.is_authenticated %}
               <div class="row mr-3 ml-1">
-                <img class="rounded-circle mt-1" height=30 width=30 src="{{ user.profile.image.url }}">
-                <a class="nav-item nav-link ml-2" href="{% url 'profile' %}">{{ user.username }}</a>
+                <img class="rounded-circle mt-2" height=30 width=30 src="{{ user.profile.image.url }}">
+                <a class="nav-item nav-link ml-2 mt-2" href="{% url 'profile' %}">{{ user.username }}</a>
               </div>
-                <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                <a class="nav-item nav-link mt-2" href="{% url 'logout' %}">Logout</a>
               {% else %}
-                <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
-                <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                <a class="nav-item nav-link mt-2" href="{% url 'login' %}">Login</a>
+                <a class="nav-item nav-link mt-2" href="{% url 'register' %}">Sign Up</a>
               {% endif %}
-
           </div>
         </div>
       </nav>
@@ -74,20 +78,16 @@
               <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
             </svg>
           Ask a Question</a>
-          <ul class="list-group bg-light mb-4">
-            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
-              <a class="nav-item nav-link text-light" href="#">Groups</a>
-              <span class="badge badge-primary badge-pill">3</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
-              <a class="nav-item nav-link text-light" href="#">Your Questions</a>
-              <span class="badge badge-primary badge-pill">2</span>
-            </li>
-            <li class="list-group-item d-flex justify-content-between align-items-center bg-dark">
-              <a class="nav-item nav-link text-light" href="#">Your Answers</a>
-              <span class="badge badge-primary badge-pill">1</span>
-            </li>          
-          </ul>
+          <div class="list-group" id="list-tab" style="width: 50%;" role="tablist">
+            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Question
+              <span class="badge badge-primary badge-pill ml-2">2</span>
+            </a>
+            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Answers
+              <span class="badge badge-primary badge-pill ml-2">4</span>
+            </a>
+          </div>
 
           <!-- <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action">

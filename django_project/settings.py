@@ -136,7 +136,11 @@ MEDIA_URL = '/media/'
 
 CKEDITOR_CONFIGS = {
     'default': {
+    'toolbar':[ ['CodeSnippet', 'Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+                ['Image', 'Flash', 'Table', 'HorizontalRule'],
+                ['TextColor', 'BGColor'], ],
     'height': 300,
-    'width': 680,
+    'width': 'auto',
+    'extraPlugins' : 'codesnippet',
    }, 
 }

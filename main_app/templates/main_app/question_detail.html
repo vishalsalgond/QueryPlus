@@ -1,12 +1,13 @@
 {% extends "main_app/base.html" %}
 {% load crispy_forms_tags %}
+{% load i18n %}
 {% block content %}
     <!-- Question content -->
     <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="">
+        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="user_image">
         <div class="media-body">
         <div class="article-metadata">
-            <a class="mr-1" href="">{{ question.author }}</a>
+            <a class="mr-1" href="{% url 'user-profile' question.author.username %}">{{ question.author }}</a>
             <small class="text-muted">asked {{ question.date_posted|timesince }} ago</small>
             {% if question.author == user %}
                 <div>
@@ -28,7 +29,12 @@
         </div>
     </article>
     <!-- Answers content -->
-    <h2>Answers</h2>
+    {% blocktrans count count as q_ans %}
+        <h4> {{ q_ans }} Answer </h4>
+        {% plural %}
+        <h4> {{ q_ans }} Answers </h4>
+    {% endblocktrans %}
+    <br>
     {% if count  %}
         <!-- show this if there is at least one answer -->
         {% for ans in answers %}
@@ -36,7 +42,7 @@
                 <img class="rounded-circle article-img" src="{{ ans.author.profile.image.url }}" alt="">
                 <div class="media-body">
                 <div class="article-metadata">
-                    <a class="mr-1" href="">{{ ans.author }}</a>
+                    <a class="mr-1" href="{% url 'user-profile' ans.author.username %}">{{ ans.author }}</a>
                     <small class="text-muted">answered {{ ans.date_posted|timesince }} ago</small>
                     {% if ans.author == user %}
                     <div>
@@ -76,12 +82,14 @@
         {% csrf_token %}
         <fieldset class="form-group">
             {% if count  %}
-                <legend class="border-bottom mb-4"><h3>Write Your Answer</h3></legend>
+                <h4>Write Your Answer</h4>
+                <br>
             {% else %}
-                <legend class="border-bottom mb-4"><h4>Be the first one to Answer</h4></legend>
+                <h4>Be the first one to Answer</h4>
+                <br>
             {% endif %}
             <div>
-                {{ form|safe }} {{ form.media }}
+                {{ form.content|safe }} {{ form.media }}
             </div>
             
         </fieldset>
@@ -89,5 +97,7 @@
             <button class="btn btn-outline-info" type="submit">Post Your Answer</button>
         </div>
     </form>
-    <a class="btn btn-primary mt-2 mb-2" href="{% url 'home' %}">Back to Home Page</a>
+    <div class="mb-3 mt-1">
+        <a href="{% url 'home' %}">Back to Home Page</a>
+    </div>
 {% endblock content %}

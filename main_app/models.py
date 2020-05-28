@@ -45,3 +45,4 @@ class Answer(models.Model):
 
     def get_absolute_url(self):
         return reverse('home')
+        # return reverse('question-detail', kwargs={'pk': Question.objects.get(id = self.pk).values('id') })
