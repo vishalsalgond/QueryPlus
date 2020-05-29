@@ -55,10 +55,16 @@ class QuestionListView(ListView):
     ordering = ['-date_posted']
     paginate_by = 5
 
-    # def post(self, request):
-    #     pass
-
-
+    def post(self, request):
+        # def get_context_data(self, **kwargs):          
+        #     context = super(QuestionListView, self).get_context_data(**kwargs) 
+        context = {} 
+        keyword = request.POST.get("search")                   
+        context["questions"] = Question.objects.filter(question__contains = keyword)
+        
+        # return redirect('home')
+        return render(request, 'main_app/home.html', context)
+        
 
 class QuestionCreateView(LoginRequiredMixin,CreateView):
     model = Question

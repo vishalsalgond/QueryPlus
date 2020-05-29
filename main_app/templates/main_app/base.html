@@ -71,24 +71,32 @@
 
           
         </div>
+
         {% if user.is_authenticated %}
         <div class="col-md-4">
-          <a class="btn btn-primary p-2 mt-3 mb-4 text-light" href="{% url 'question-create' %}">
-            <svg class="bi bi-plus-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
-            </svg>
-          Ask a Question</a>
-          <div class="list-group" id="list-tab" style="width: 50%;" role="tablist">
-            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Question
-              <span class="badge badge-primary badge-pill ml-2">2</span>
-            </a>
-            <a class="list-group-item list-group-item-action bg-dark text-light" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Answers
-              <span class="badge badge-primary badge-pill ml-2">4</span>
-            </a>
-          </div>
-
+          <article class="content-section" style="width: 80%;">
+            <div class="row ml-3">
+              <a class="btn btn-primary p-2 mt-3 mb-4 text-light" href="{% url 'question-create' %}">
+                <svg class="bi bi-plus-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
+                </svg>
+              Ask a Question</a>
+            </div>
+            <div class="row ml-3">
+              <div class="list-group mb-3" id="list-tab" style="width: 200px;"  role="tablist">
+                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Questions
+                  <span class="badge badge-primary badge-pill ml-2">2</span>
+                </a>
+                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Answers
+                  <span class="badge badge-primary badge-pill ml-2">4</span>
+                </a>
+              </div>
+            </div>
+  
+            
+          </article>
           <!-- <div class="list-group">
             <a href="#" class="list-group-item list-group-item-action">
               <div class="d-flex w-100 justify-content-between">

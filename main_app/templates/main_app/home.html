@@ -5,9 +5,10 @@
 
   {% if user.is_authenticated %}
     <nav class="navbar navbar-light">
-      <form class="form-inline">
+      <form class="form-inline" method="POST">
+        {% csrf_token %}
         <div class="row mb-4">
-          <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search" name="search" aria-label="Search">
           <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
         </div>
       </form>
@@ -69,5 +70,14 @@
     </div>
     </div>
   {% endif %}
+
+  <div class="mb-3 mt-1">
+    <a href="{% url 'home' %}">
+        <svg class="bi bi-arrow-90deg-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M6.104 2.396a.5.5 0 0 1 0 .708L3.457 5.75l2.647 2.646a.5.5 0 1 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
+            <path fill-rule="evenodd" d="M2.75 5.75a.5.5 0 0 1 .5-.5h6.5a2.5 2.5 0 0 1 2.5 2.5v5.5a.5.5 0 0 1-1 0v-5.5a1.5 1.5 0 0 0-1.5-1.5h-6.5a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        Home</a>
+</div>
 
 {% endblock content %}

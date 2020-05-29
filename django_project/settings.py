@@ -139,7 +139,7 @@ CKEDITOR_CONFIGS = {
     'toolbar':[ ['CodeSnippet', 'Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
                 ['Image', 'Flash', 'Table', 'HorizontalRule'],
                 ['TextColor', 'BGColor'], ],
-    'height': 300,
+    'height': 'auto',
     'width': 'auto',
     'extraPlugins' : 'codesnippet',
    }, 
