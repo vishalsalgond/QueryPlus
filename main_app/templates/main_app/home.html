@@ -3,81 +3,95 @@
 {% load i18n %}
 {% block content %}
 
+  
+
   {% if user.is_authenticated %}
-    <nav class="navbar navbar-light">
-      <form class="form-inline" method="POST">
-        {% csrf_token %}
-        <div class="row mb-4">
-          <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search" name="search" aria-label="Search">
-          <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+      <div class="container">
+        <nav class="navbar navbar-light">
+          <form class="form-inline" method="POST">
+            {% csrf_token %}
+            <div class="row mb-4 mt-2">
+              <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search" name="search" aria-label="Search">
+              <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+            </div>
+          </form>
+        </nav>
+        <h3> <b>Recent Questions</b> </h3>
+        <br>
+      </div>
+        {% for q in questions %}
+        <div class="container">
+        <div class="shadow rounded">
+          <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ q.author.profile.image.url }}" alt="">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-1" href="{% url 'user-profile' q.author.username %}">{{ q.author }}</a>
+                <small class="text-muted">asked {{ q.date_posted|timesince }} ago</small>
+            </div>
+              <h4><a class="article-title" href="{% url 'question-detail' q.id %}"><b>{{ q.question|safe }}</b></a></h4>  
+                {% blocktrans count q.answer_set.count as q_ans %}
+                  <small class="text-success"> <span class="badge badge-success badge-pill">{{ q_ans }}</span> Answer </small>
+                  {% plural %}
+                  <small class="text-success"> <span class="badge badge-success badge-pill">{{ q_ans }}</span> Answers </small>
+                {% endblocktrans %}       
+            </div>
+          </article>
         </div>
-      </form>
-    </nav>
-    <h3> <b>Recent Questions</b> </h3>
-    <br>
-    {% for q in questions %}
-    <div class="shadow rounded">
-      <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ q.author.profile.image.url }}" alt="">
-        <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-1" href="{% url 'user-profile' q.author.username %}">{{ q.author }}</a>
-            <small class="text-muted">asked {{ q.date_posted|timesince }} ago</small>
-        </div>
-          <h4><a class="article-title" href="{% url 'question-detail' q.id %}"><b>{{ q.question|safe }}</b></a></h4>  
-            {% blocktrans count q.answer_set.count as q_ans %}
-              <small class="text-success"> <span class="badge badge-success badge-pill">{{ q_ans }}</span> Answer </small>
-              {% plural %}
-              <small class="text-success"> <span class="badge badge-success badge-pill">{{ q_ans }}</span> Answers </small>
-            {% endblocktrans %}       
-        </div>
-      </article>
-    </div>
+      </div>
     {% endfor %}
   {% else %}
-    <div class="jumbotron bg-dark text-light">
-            <div class="row mt-0" >
-                <h1 class="mt-4 p-4 text-light">Hello <br> Developers!</h1>
-                <img src="{% static 'main_app/avatar.png' %}" alt="image" width="200px", height="200px">
-            </div>
 
-      <p class="lead mt-3">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-      <hr class="my-4 bg-light">
-      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-    </div>
-
-    <div class="row mb-5">
-        <div class="col">
-        <div class="card p-2 mb-2" style="width: 20rem; height: 27rem;">
-          <img src="{% static 'main_app/card1.jpg' %}" class="card-img-top" alt="..." height="200px">
-          <div class="card-body mb-3">
-            <h5 class="card-title">Join the community</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
+   <!-- Hero section -->
+   <section id="hero" class="d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-7 d-flex flex-column justify-content-center order-2 order-lg-1">
+          <h1>We <i class="fa fa-heart" style="font-size:36px; color: red;"></i> People Who Code</h1>
+          <h2>We build products that empower developers and connect them to solutions that enable productivity, growth, and discovery</h2>
+          <div class="d-lg-flex">
+            <a href="{% url 'register' %}" class="btn-get-started scrollto">Get Started</a>
           </div>
         </div>
-    </div>
-        <div class="col">
-        <div class="card p-2 mb2" style="width: 20rem; height: 27rem;">
-          <img src="{% static 'main_app/card2.png' %}" class="card-img-top" alt="..." height="150px">
-          <div class="card-body mt-5">
-            <h5 class="card-title">Get help</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Learn More</a>
-          </div>
+        <div class="col-lg-5 order-1 order-lg-2 hero-img">
+          <img src="https://cdn.clarisoft.com/img/ddt/front.png" class="img-fluid animated" alt="">
         </div>
+      </div>
     </div>
+  </section>
+
+  <!-- ======= About Us Section ======= -->
+  <section id="about" class="about">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>For Developers by Developers</h2>
+      </div>
+
+      <div class="row content">
+        <div class="col-lg-6">
+          <p>
+            Our mission is to help developers write the script of the future. We help you find and hire skilled developers for your business and providing them the tools they need to share knowledge and work effectively.
+          </p>
+          <ul>
+            <li><i class="ri-check-double-line"></i> Quickly find and share internal knowledge with Q&A</li>
+            <li><i class="ri-check-double-line"></i> Level up your knowledge by with the best developers</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0">
+          <p>
+            QueryPlus is an open community for anyone that codes. We help you get answers to your toughest coding questions, share knowledge with your coworkers in private, and find your next dream job.
+          </p>
+          <a href="#" class="btn-learn-more">Learn More</a>
+        </div>
+      </div>
+
     </div>
+  </section><!-- End About Us Section -->
+   
+    
   {% endif %}
 
-  <div class="mb-3 mt-1">
-    <a href="{% url 'home' %}">
-        <svg class="bi bi-arrow-90deg-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd" d="M6.104 2.396a.5.5 0 0 1 0 .708L3.457 5.75l2.647 2.646a.5.5 0 1 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 0 1 .708 0z"/>
-            <path fill-rule="evenodd" d="M2.75 5.75a.5.5 0 0 1 .5-.5h6.5a2.5 2.5 0 0 1 2.5 2.5v5.5a.5.5 0 0 1-1 0v-5.5a1.5 1.5 0 0 0-1.5-1.5h-6.5a.5.5 0 0 1-.5-.5z"/>
-          </svg>
-        Home</a>
-</div>
 
 {% endblock content %}
+

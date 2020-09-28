@@ -5,55 +5,53 @@
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link rel="icon" href="{% static 'main_app/logo.png' %}" type="image/icon type">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor  CSS -->
+    <link rel="stylesheet" href="{% static 'main_app/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/vendor/icofont/icofont.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/vendor/boxicons/css/boxicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/vendor/remixicon/remixicon.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/vendor/venobox/venobox.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/vendor/owl.carousel/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main_app/vendor/aos/aos.css' %}">
 
     <link rel="stylesheet" type="text/css" href="{% static 'main_app/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'main_app/footer.css' %}">
-    <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/zenburn.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'main_app/footer.css' %}"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/zenburn.min.css"> -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
     {% if title %}
-        <title>QueryPlus - {{ title }}</title>
+        <title>{{ title }}</title>
     {% else %}
         <title>QueryPlus</title>
     {% endif %}
 </head>
 <body>
-    <header class="site-header">
-      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-        <div class="container">
-          <img src="{% static 'main_app/logo.png' %}" width="25" height="25" class="d-inline-block align-top" alt="">
-          <a class="navbar-brand mr-4 ml-2" href="{% url 'home' %}">QueryPlus</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarToggle">
-            <div class="navbar-nav mr-auto">
-              <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
-              <a class="nav-item nav-link" href="#">About</a>
-            </div>
-             <!-- Navbar Right Side -->
-             <div class="navbar-nav">
-              {% if user.is_authenticated %}
-              <div class="row mr-3 ml-1">
-                <img class="rounded-circle mt-2" height=30 width=30 src="{{ user.profile.image.url }}">
-                <a class="nav-item nav-link ml-2 mt-2" href="{% url 'profile' %}">{{ user.username }}</a>
-              </div>
-                <a class="nav-item nav-link mt-2" href="{% url 'logout' %}">Logout</a>
-              {% else %}
-                <a class="nav-item nav-link mt-2" href="{% url 'login' %}">Login</a>
-                <a class="nav-item nav-link mt-2" href="{% url 'register' %}">Sign Up</a>
-              {% endif %}
-          </div>
-        </div>
-      </nav>
-    </header>
+    
+  <!-- Header -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center mb-2 mt-1">
+      <h1 class="logo mr-auto"><a class="text-light" href="{% url 'home' %}">QueryPlus</a></h1>
+      {%if user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="text-light scrollto">{{ user.username }}</a>
+        <a href="{% url 'logout' %}" class="get-started-btn scrollto">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="get-started-btn scrollto">Sign In</a>
+        <a href="{% url 'register' %}" class="get-started-btn scrollto">Create Account</a>
+      {% endif %}
+    </div>
+  </header>
+
+  
+ 
     <main role="main" class="container">
       <div class="row">
         <div class="col-md-8">
@@ -64,82 +62,38 @@
                 </div>
               {% endfor %}
             {% endif %}
-
-
-          {% block content %}
-          {% endblock %}
-
-          
         </div>
-
-        {% if user.is_authenticated %}
-        <div class="col-md-4">
-          <article class="content-section" style="width: 80%;">
-            <div class="row ml-3">
-              <a class="btn btn-primary p-2 mt-3 mb-4 text-light" href="{% url 'question-create' %}">
-                <svg class="bi bi-plus-circle-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4a.5.5 0 0 0-1 0v3.5H4a.5.5 0 0 0 0 1h3.5V12a.5.5 0 0 0 1 0V8.5H12a.5.5 0 0 0 0-1H8.5V4z"/>
-                </svg>
-              Ask a Question</a>
-            </div>
-            <div class="row ml-3">
-              <div class="list-group mb-3" id="list-tab" style="width: 200px;"  role="tablist">
-                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
-                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
-                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Questions
-                  <span class="badge badge-primary badge-pill ml-2">2</span>
-                </a>
-                <a class="list-group-item list-group-item-action bg-dark text-light" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Answers
-                  <span class="badge badge-primary badge-pill ml-2">4</span>
-                </a>
-              </div>
-            </div>
-  
-            
-          </article>
-          <!-- <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small>3 days ago</small>
-              </div>
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              <small>Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small class="text-muted">3 days ago</small>
-              </div>
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action">
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1">List group item heading</h5>
-                <small class="text-muted">3 days ago</small>
-              </div>
-              <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-              <small class="text-muted">Donec id elit non mi porta.</small>
-            </a>
-          </div> -->
-
-        </div>
-        {% endif %}
-      </div>
     </main>
+    
+    
+  {% block content %}
+  {% endblock %}
+  
 
-    <footer class="footer">
+  <!-- <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
+  <div id="preloader"></div> -->
+
+    <!-- <footer class="footer">
         <div class="bg-light text-center" style="width: 100%;" >
           <span class="text-dark">© 2020 Copyright : </span>
           <a class="text-primary" href="">QueryPlus.com</a>
         </div>
-      </footer>
+      </footer> -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="{% static 'main_app/vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'main_app/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'main_app/vendor/jquery.easing/jquery.easing.min.js'%}"></script>
+    <script src="{% static 'main_app/vendor/waypoints/jquery.waypoints.min.js'%}"></script>
+    <script src="{% static 'main_app/vendor/isotope-layout/isotope.pkgd.min.js'%}"></script>
+    <script src="{% static 'main_app/vendor/venobox/venobox.min.js'%}"></script>
+    <script src="{% static 'main_app/vendor/owl.carousel/owl.carousel.min.js'%}"></script>
+    <script src="{% static 'main_app/vendor/aos/aos.js'%}"></script>
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
 </body>
 </html>

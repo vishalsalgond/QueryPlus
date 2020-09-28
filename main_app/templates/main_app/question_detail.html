@@ -3,6 +3,7 @@
 {% load i18n %}
 {% block content %}
     <!-- Question content -->
+    <div class="container">
     <article class="media content-section">
         <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="user_image">
         <div class="media-body">
@@ -109,4 +110,5 @@
               </svg>
             Back to Home Page</a>
     </div>
+</div>
 {% endblock content %}
