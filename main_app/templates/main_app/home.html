@@ -6,13 +6,14 @@
   
 
   {% if user.is_authenticated %}
+  
       <div class="container">
         <nav class="navbar navbar-light">
           <form class="form-inline" method="POST">
             {% csrf_token %}
             <div class="row mb-4 mt-2">
               <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search" name="search" aria-label="Search">
-              <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
+              <button style="background-color:  #47b2e4;" class="get-started-btn my-2 my-sm-0" type="submit">Search</button>
             </div>
           </form>
         </nav>
@@ -62,7 +63,7 @@
 
   <!-- ======= About Us Section ======= -->
   <section id="about" class="about">
-    <div class="container">
+    <div style="margin-bottom: 50px;" class="container">
 
       <div class="section-title">
         <h2>For Developers by Developers</h2>
@@ -89,6 +90,44 @@
     </div>
   </section><!-- End About Us Section -->
    
+  <!-- ======= Services Section ======= -->
+  <section id="services" class="services section-bg">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Services</h2>
+        <p>Use the world’s largest resource for people who code to help you increase awareness and showcase your product or service across Stack Overflow’s network of Q&A sites.</p>
+      </div>
+
+      <div  class="row">
+        <div style="margin: auto;" class="col-xl-4 col-md-6 d-flex align-items-stretch">
+          <div class="icon-box">
+            <div class="icon"><img src="https://cdn.sstatic.net/Img/home/private-questions.svg?v=a4f1cfb08f7e" height="50px" width="50px" alt=""></div>
+            <h4><a href="">Private Q&A</a></h4>
+            <p>Quickly find and share internal knowledge with Private Q&A</p>
+          </div>
+        </div>
+
+        <div style="margin: auto;" class="col-xl-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+          <div class="icon-box">
+            <div class="icon"><img src="https://cdn.sstatic.net/Img/home/find-candidate.svg?v=9099aa106ad3" height="50px" width="50px" alt=""></div>
+            <h4><a href="">Talent Solutions</a></h4>
+            <p>Find the perfect candidate for your growing technical team with Talent solutions</p>
+          </div>
+        </div>
+
+        <div style="margin: auto;" class="col-xl-4 col-md-6 d-flex align-items-stretch mt-4 mt-xl-0">
+          <div class="icon-box">
+            <div class="icon"><img src="https://cdn.sstatic.net/Img/home/accelerate.svg?v=9d4c2786ff02" height="50px" width="50px" alt=""></div>
+            <h4><a href="">Advertising Platform</a></h4>
+            <p>Accelerate the discovery of your products or services through our Advertising platform</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
     
   {% endif %}
 

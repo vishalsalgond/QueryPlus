@@ -38,17 +38,38 @@
     
   <!-- Header -->
   <header id="header" class="fixed-top">
-    <div class="container d-flex align-items-center mb-2 mt-1">
+    <div class="container d-flex align-items-center mb-2 mt-2">
       <h1 class="logo mr-auto"><a class="text-light" href="{% url 'home' %}">QueryPlus</a></h1>
       {%if user.is_authenticated %}
         <a href="{% url 'profile' %}" class="text-light scrollto">{{ user.username }}</a>
-        <a href="{% url 'logout' %}" class="get-started-btn scrollto">Logout</a>
+        <a href="" data-toggle="modal" data-target="#logoutModal" class="get-started-btn scrollto">Logout</a>
       {% else %}
         <a href="{% url 'login' %}" class="get-started-btn scrollto">Sign In</a>
         <a href="{% url 'register' %}" class="get-started-btn scrollto">Create Account</a>
       {% endif %}
     </div>
   </header>
+
+  <!-- Modal -->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Log Out</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Are you sure want to log out?
+        </div>
+        <div class="modal-footer">
+          <button  type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+          <a href="{% url 'logout' %}" type="button" class="btn btn-success">Yes</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   
  
@@ -69,6 +90,18 @@
   {% block content %}
   {% endblock %}
   
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="container footer-bottom">
+      <div class="copyright">
+        &copy; Copyright <strong><span>QueryPlus</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="">Vishal Salgond</a>
+      </div>
+    </div>
+  </footer>
+<!-- End Footer -->
 
   <!-- <a href="#" class="back-to-top"><i class="ri-arrow-up-line"></i></a>
   <div id="preloader"></div> -->
