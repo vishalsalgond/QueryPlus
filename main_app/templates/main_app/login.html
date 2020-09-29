@@ -1,5 +1,6 @@
 {% extends "main_app/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block title %}Login{% endblock %}
 {% block content %}
 <style>
@@ -15,7 +16,7 @@
           <div class="col-lg-6 px-0">
             <img
               class="img"
-              src="https://lh3.googleusercontent.com/proxy/uaVPEqZg8kUOBlAr6oX5Cs5oxZuSK1lIYxWv5vqxUq9ytRH20gAw1J-GC7DgUphDDJb7uYMnTHfvoNy99HJyeigDDk8u-a1t6B-w5hoO"
+              src="{% static 'main_app/signin.jpg' %}"
               alt=""
             />
           </div>

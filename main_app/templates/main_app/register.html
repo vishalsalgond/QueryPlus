@@ -1,5 +1,6 @@
 {% extends "main_app/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block content %}
 <style>
   body {
@@ -14,7 +15,7 @@
           <div class="col-lg-6 px-0">
             <img
               class="img"
-              src="https://i.pinimg.com/originals/ce/c5/be/cec5be1117ac9164bf0c863f021c2d30.jpg"
+              src="{% static 'main_app/register.jpg' %}"
             />
           </div>
 
