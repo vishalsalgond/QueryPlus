@@ -12,7 +12,7 @@
           <form class="form-inline" method="POST">
             {% csrf_token %}
             <div class="row mb-4 mt-2">
-              <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search" name="search" aria-label="Search">
+              <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search for a question" name="search" aria-label="Search">
               <button style="background-color:  #47b2e4;" class="get-started-btn my-2 my-sm-0" type="submit">Search</button>
             </div>
           </form>
@@ -20,6 +20,7 @@
         <h3> <b>Recent Questions</b> </h3>
         <br>
       </div>
+      <section style="margin-bottom: 80px;">
         {% for q in questions %}
         <div class="container">
         <div class="shadow rounded">
@@ -41,6 +42,7 @@
         </div>
       </div>
     {% endfor %}
+  </section>
   {% else %}
 
    <!-- Hero section -->
@@ -92,7 +94,7 @@
    
   <!-- ======= Services Section ======= -->
   <section id="services" class="services section-bg">
-    <div class="container">
+    <div class="container mb-4">
 
       <div class="section-title">
         <h2>Services</h2>

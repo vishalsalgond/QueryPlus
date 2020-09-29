@@ -3,7 +3,7 @@
 {% load i18n %}
 {% block content %}
     <!-- Question content -->
-    <div class="container">
+    <div style="margin-bottom: 100px;" class="container">
     <article class="media content-section mt-5">
         <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="user_image">
         <div class="media-body">
@@ -89,7 +89,7 @@
         {% endfor %}
     {% else %}
         <!-- if there are no answers then show this -->
-        <div class="mb-5 mt-5">
+        <!-- <div class="mb-5 mt-5">
             <h5 class="text-muted">Sorry, No answers found !
                 <svg class="bi bi-emoji-frown" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
@@ -97,7 +97,7 @@
                     <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
                 </svg>
             </h5>
-        </div>
+        </div> -->
     {% endif %}
     
     <!-- Form for answer -->
