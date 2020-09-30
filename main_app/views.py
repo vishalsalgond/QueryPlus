@@ -68,7 +68,7 @@ class QuestionListView(ListView):
 
 class QuestionCreateView(LoginRequiredMixin,CreateView):
     model = Question
-    fields = ['question']
+    fields = ['title', 'question']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

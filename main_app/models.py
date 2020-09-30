@@ -24,6 +24,7 @@ class Profile(models.Model):
             img.save(self.image.path)
 
 class Question(models.Model):
+    title = models.CharField(max_length=100, null=True)
     question = RichTextField()
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)

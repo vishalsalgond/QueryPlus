@@ -6,10 +6,18 @@
             <form method="POST">
                 {% csrf_token %}
                 <fieldset class="form-group">
-                    <legend class="border-bottom mb-4"><h1>Ask Your Question</h1></legend>
+                    <legend class="border-bottom mb-4"><h1>Ask your question</h1></legend>
+                    <div class="form-row mb-5">
+                        <div class="form-group col-lg-10">
+                            {{ form.title|as_crispy_field }}
+                            <span class="text-muted">Be specific and imagine you’re asking a question to another person</span>
+                        </div>
+                      </div>
+                      <h5>Body*</h5>
                     {{ form.question|safe }} {{ form.media }}
                 </fieldset>
-                <div class="form-group">
+                <span class="text-muted">Include all the information someone would need to answer your question</span>
+                <div class="form-group mt-4">
                     <button class="btn btn-outline-info" type="submit">Ask</button>
                 </div>
             </form>

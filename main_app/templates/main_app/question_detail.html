@@ -8,6 +8,7 @@
         <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" alt="user_image">
         <div class="media-body">
         <div class="article-metadata">
+            <h3 class="article-title">{{ question.title|safe }}</h3>
             <a class="mr-1" href="{% url 'user-profile' question.author.username %}">{{ question.author }}</a>
             <small class="text-muted">asked {{ question.date_posted|timesince }} ago</small>
             {% if question.author == user %}
@@ -26,7 +27,7 @@
                 </div>
             {% endif %}
         </div>
-            <h2 class="article-title">{{ question.question|safe }}</h2>
+            <p class="article-title">{{ question.question|safe }}</p>
         </div>
     </article>
     <!-- Answers content -->

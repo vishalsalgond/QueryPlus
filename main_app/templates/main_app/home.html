@@ -8,16 +8,20 @@
   {% if user.is_authenticated %}
   
       <div class="container">
+        <div class="container d-flex pt-5">
+          <h2 class=""> <b>Recent Questions</b> </h2>
+          <a style="background-color:  #47b2e4;" href="{% url 'question-create' %}" class="get-started-btn pt-2" type="submit"><i class="fa fa-plus mr-2"></i>Ask Question</a>
+        </div>
+        
         <nav class="navbar navbar-light">
           <form class="form-inline" method="POST">
             {% csrf_token %}
-            <div class="row mb-4 mt-2">
+            <div class="row mt-4">
               <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search for a question" name="search" aria-label="Search">
-              <button style="background-color:  #47b2e4;" class="get-started-btn my-2 my-sm-0" type="submit">Search</button>
+              <button style="background-color:  #47b2e4;" class="get-started-btn my-sm-0" type="submit"><i class="fa fa-search"></i></button>
             </div>
           </form>
         </nav>
-        <h3> <b>Recent Questions</b> </h3>
         <br>
       </div>
       <section style="margin-bottom: 80px;">
@@ -31,7 +35,7 @@
                 <a class="mr-1" href="{% url 'user-profile' q.author.username %}">{{ q.author }}</a>
                 <small class="text-muted">asked {{ q.date_posted|timesince }} ago</small>
             </div>
-              <h4><a class="article-title" href="{% url 'question-detail' q.id %}"><b>{{ q.question|safe }}</b></a></h4>  
+              <h4><a class="article-title" href="{% url 'question-detail' q.id %}"><b>{{ q.title|safe }}</b></a></h4>  
                 {% blocktrans count q.answer_set.count as q_ans %}
                   <small class="text-success"> <span class="badge badge-success badge-pill">{{ q_ans }}</span> Answer </small>
                   {% plural %}
