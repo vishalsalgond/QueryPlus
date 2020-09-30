@@ -143,5 +143,6 @@ CKEDITOR_CONFIGS = {
     'height': 'auto',
     'width': 'auto',
     'extraPlugins' : 'codesnippet',
+    'codeSnippet_theme': 'railscasts',
    }, 
 }

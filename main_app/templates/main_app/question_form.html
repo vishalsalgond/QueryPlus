@@ -1,7 +1,7 @@
 {% extends "main_app/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="container mt-5">
+    <div class="container my-5">
         <div class="content-section">
             <form method="POST">
                 {% csrf_token %}
@@ -18,7 +18,7 @@
                 </fieldset>
                 <span class="text-muted">Include all the information someone would need to answer your question</span>
                 <div class="form-group mt-4">
-                    <button class="btn btn-outline-info" type="submit">Ask</button>
+                    <button class="btn btn-info" type="submit">Ask</button>
                 </div>
             </form>
         </div>

@@ -112,7 +112,7 @@ class QuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 class QuestionUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Question
-    fields = ['question']
+    fields = ['title','question']
 
     def form_valid(self, form):
         form.instance.author = self.request.user

@@ -10,7 +10,7 @@
       <div class="container">
         <div class="container d-flex pt-5">
           <h2 class=""> <b>Recent Questions</b> </h2>
-          <a style="background-color:  #47b2e4;" href="{% url 'question-create' %}" class="get-started-btn pt-2" type="submit"><i class="fa fa-plus mr-2"></i>Ask Question</a>
+          <a style="background-color:  #47b2e4; font-size: large;" href="{% url 'question-create' %}" class="get-started-btn py-2 text" type="submit">Ask Question</a>
         </div>
         
         <nav class="navbar navbar-light">
@@ -18,7 +18,7 @@
             {% csrf_token %}
             <div class="row mt-4">
               <input class="form-control mr-sm-2" style="width: 400px;" type="search" placeholder="Search for a question" name="search" aria-label="Search">
-              <button style="background-color:  #47b2e4;" class="get-started-btn my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+              <button style="background-color:  #47b2e4;" class="get-started-btn ml-1 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
             </div>
           </form>
         </nav>
