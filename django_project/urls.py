@@ -39,6 +39,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(template_name='main_app/logout.html'), name='logout'),
     path('question/new/', QuestionCreateView.as_view(), name='question-create'), 
     path('question/<int:pk>/', QuestionDetailView.as_view(), name='question-detail'), 
+    path('question/<int:pk>/upvote', main_views.UpvoteQuestion, name='question-upvote'),
     path('question/<int:pk>/delete/', QuestionDeleteView.as_view(), name='question-delete'), 
     path('question/<int:pk>/update/', QuestionUpdateView.as_view(), name='question-update'), 
     path('answer/<int:pk>/update/', AnswerUpdateView.as_view(), name='answer-update'), 

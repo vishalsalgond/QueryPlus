@@ -28,6 +28,8 @@ class Question(models.Model):
     question = RichTextField()
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    upvotes = models.ManyToManyField(User, related_name='upvotes', blank=True)
+    downvotes = models.ManyToManyField(User, related_name='downvotes', blank=True)
 
     # def __str__(self):
     #     return self.question

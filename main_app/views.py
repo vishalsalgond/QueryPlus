@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -53,7 +54,7 @@ class QuestionListView(ListView):
     template_name = 'main_app/home.html'
     context_object_name = 'questions'
     ordering = ['-date_posted']
-    paginate_by = 5
+    paginate_by = 10
 
     def post(self, request):
         # def get_context_data(self, **kwargs):          
@@ -96,7 +97,13 @@ class QuestionDetailView(DetailView):
         context["count"] =  Answer.objects.filter(answered_to=context["question"]).count()
         return context 
     
-   
+def UpvoteQuestion(request, pk, **kwargs):
+    if request.method == 'POST':
+        print(pk)
+        question = get_object_or_404(Question, id=pk)
+        question.upvotes.add(request.user)
+        return HttpResponseRedirect(question.get_absolute_url())   
+
 
 class QuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Question
