@@ -101,10 +101,8 @@ class QuestionDetailView(DetailView):
 @login_required  
 def UpvoteQuestion(request, pk, **kwargs):
     if request.method == 'POST':
-        print(pk)
         question = get_object_or_404(Question, id=pk)
         question.upvotes.add(request.user)
-        # return HttpResponseRedirect(question.get_absolute_url()) 
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next) 
 
@@ -112,9 +110,25 @@ def UpvoteQuestion(request, pk, **kwargs):
 @login_required
 def DownvoteQuestion(request, pk, **kwargs):
     if request.method == 'POST':
-        print(pk)
         question = get_object_or_404(Question, id=pk)
         question.downvotes.add(request.user)
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)  
+
+@login_required  
+def UpvoteAnswer(request, pk, **kwargs):
+    if request.method == 'POST':
+        answer = get_object_or_404(Answer, id=pk)
+        answer.upvotes.add(request.user)
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next) 
+
+
+@login_required
+def DownvoteAnswer(request, pk, **kwargs):
+    if request.method == 'POST':
+        answer = get_object_or_404(Answer, id=pk)
+        answer.downvotes.add(request.user)
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)  
 

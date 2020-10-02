@@ -67,7 +67,7 @@
                     </div>
                     <div style=" border-radius: 5px;" class="col-3 mx-2">
                       <div  class="row mt-1">
-                        <div class="text-danger" style="margin: auto;">1</div>
+                        <div class="text-danger" style="margin: auto;"> {{ q.downvotes.count }} </div>
                       </div>
                       <div class="row">
                         {% blocktrans count q.downvotes.count as q_downvotes %}

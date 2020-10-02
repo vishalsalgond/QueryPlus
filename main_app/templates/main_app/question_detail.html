@@ -14,13 +14,13 @@
             <small class="text-muted">asked {{ question.date_posted|timesince }} ago</small>
             {% if question.author == user %}
                 <div>
-                    <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'question-update' object.id %}">
+                    <a class="btn btn-outline-success btn-sm mt-1 mb-1" href="{% url 'question-update' object.id %}">
                         <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
                             <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
                         </svg>
                         Edit</a>
-                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'question-delete' object.id %}">
+                    <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'question-delete' object.id %}">
                         <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                         </svg>
@@ -33,13 +33,29 @@
                 <div class="row">
                     <form action="{% url 'question-upvote' object.id %}" method="POST">
                         {% csrf_token %}
-                            <input type="hidden" name="next" value="{{ request.path }}">
-                            <button type="submit" class="btn btn-success btn-sm m-2"> {{ question.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
+                            {% if user not in question.upvotes.all %}
+                                {% if user in question.downvotes.all %}
+                                    <a id="example" role="button" class="btn btn-outline-success btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ question.upvotes.count }} <i class='fas fa-arrow-down'></i></a>
+                                {% else %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <button type="submit" class="btn btn-outline-success btn-sm m-2"> {{ question.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
+                                {% endif %}
+                            {% else %}
+                                <button type="submit" class="btn btn-success btn-sm m-2"> {{ question.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
+                            {% endif %}
                     </form>
                     <form action="{% url 'question-downvote' object.id %}" method="POST">
                         {% csrf_token %}
-                            <input type="hidden" name="next" value="{{ request.path }}">
-                            <button type="submit" class="btn btn-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
+                            {% if user not in question.downvotes.all %}
+                                {% if user in question.upvotes.all %}
+                                    <a id="example" role="button" class="btn btn-outline-danger btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></a>
+                                {% else %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
+                                {% endif %}
+                            {% else %}
+                                <button type="button" class="btn btn-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
+                            {% endif %}
                     </form>
                 </div>
             {% endif %}
@@ -63,59 +79,58 @@
                     <small class="text-muted">answered {{ ans.date_posted|timesince }} ago</small>
                     {% if ans.author == user %}
                     <div>
-                        <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'answer-update' ans.id %}">
+                        <a class="btn btn-outline-success btn-sm mt-1 mb-1" href="{% url 'answer-update' ans.id %}">
                             <svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
                                 <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
                             </svg>
                             Edit</a>
-                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'answer-delete' ans.id %}">
+                        <a class="btn btn-outline-danger btn-sm mt-1 mb-1" href="{% url 'answer-delete' ans.id %}">
                             <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                             </svg>
                             Delete</a>
                     </div>
 
-                    <!-- Modal -->
-                    <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Delete Answer</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-                            Are you sure want to delete the answer?
-                            </div>
-                            <div class="modal-footer">
-                            <button  type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                            <a href="{% url 'answer-delete' ans.id %}" type="button" class="btn btn-success">Yes</a>
-                            </div>
-                        </div>
-                        </div>
-                    </div> -->
-
                 {% endif %}
                 </div>
                 <p>{{ ans.content|safe }}</p>
-                
+                {% if user != ans.author %}
+                    <div class="row">
+                        <form action="{% url 'answer-upvote' ans.id %}" method="POST">
+                            {% csrf_token %}
+                                {% if user not in ans.upvotes.all %}
+                                    {% if user in ans.downvotes.all %}
+                                        <a id="example" role="button" class="btn btn-outline-success btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ ans.upvotes.count }} <i class='fas fa-arrow-down'></i></a>
+                                    {% else %}
+                                        <input type="hidden" name="next" value="{{ request.path }}">
+                                        <button type="submit" class="btn btn-outline-success btn-sm m-2"> {{ ans.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
+                                    {% endif %}
+                                {% else %}
+                                    <button type="submit" class="btn btn-success btn-sm m-2"> {{ ans.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
+                                {% endif %}
+                        </form>
+                        <form action="{% url 'answer-downvote' ans.id %}" method="POST">
+                            {% csrf_token %}
+                                {% if user not in ans.downvotes.all %}
+                                    {% if user in ans.upvotes.all %}
+                                        <a id="example" role="button" class="btn btn-outline-danger btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ ans.downvotes.count }} <i class='fas fa-arrow-down'></i></a>
+                                    {% else %}
+                                        <input type="hidden" name="next" value="{{ request.path }}">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm m-2"> {{ ans.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
+                                    {% endif %}
+                                {% else %}
+                                    <button type="button" class="btn btn-danger btn-sm m-2"> {{ ans.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
+                                {% endif %}
+                        </form>
+                    </div>
+                {% endif %}
                 </div>
                 
             </article>
         {% endfor %}
     {% else %}
-        <!-- if there are no answers then show this -->
-        <!-- <div class="mb-5 mt-5">
-            <h5 class="text-muted">Sorry, No answers found !
-                <svg class="bi bi-emoji-frown" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                    <path fill-rule="evenodd" d="M4.285 12.433a.5.5 0 0 0 .683-.183A3.498 3.498 0 0 1 8 10.5c1.295 0 2.426.703 3.032 1.75a.5.5 0 0 0 .866-.5A4.498 4.498 0 0 0 8 9.5a4.5 4.5 0 0 0-3.898 2.25.5.5 0 0 0 .183.683z"/>
-                    <path d="M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/>
-                </svg>
-            </h5>
-        </div> -->
+        
     {% endif %}
     
     <!-- Form for answer -->
@@ -147,5 +162,11 @@
     </form>
 </div>
 
+<!-- <script>
+    // $('#example').popover('hide');
+    $('#example').click(function(){
+        $('#example').popover('show');
+    });
+</script> -->
 
 {% endblock content %}
