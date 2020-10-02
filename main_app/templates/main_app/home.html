@@ -31,17 +31,55 @@
             <article class="media content-section bg-light">
               <img class="rounded-circle article-img" src="{{ q.author.profile.image.url }}" alt="">
               <div class="media-body">
-              <div class="article-metadata">
-                  <a class="mr-1" href="{% url 'user-profile' q.author.username %}">{{ q.author }}</a>
-                  <small class="text-muted">asked {{ q.date_posted|timesince }} ago</small>
-              </div>
-                <h4><a class="article-title" href="{% url 'question-detail' q.id %}"><b>{{ q.title|safe }}</b></a></h4>  
-                  {% blocktrans count q.answer_set.count as q_ans %}
-                    <small class="text-info"> <span class="badge badge-info badge-pill">{{ q_ans }}</span> Answer </small>
-                    {% plural %}
-                    <small class="text-info"> <span class="badge badge-info badge-pill">{{ q_ans }}</span> Answers </small>
-                  {% endblocktrans %}    
-                  
+                <div class="article-metadata">
+                    <a class="mr-1" href="{% url 'user-profile' q.author.username %}">{{ q.author }}</a>
+                    <small class="text-muted">asked {{ q.date_posted|timesince }} ago</small>
+                </div>
+                <div class="row">
+                  <div class="col-lg-8">
+                    <h4><a class="article-title" href="{% url 'question-detail' q.id %}"><b>{{ q.title|safe }}</b></a></h4>    
+                  </div>
+                  <div class="col-lg-4 d-flex">
+                    <div style="margin-left: auto;" class="row pr-3">
+                    <div style=" border-radius: 5px;" class="col-3 mx-2">
+                      <div  class="row mt-1">
+                        <div class="text-info" style="margin: auto;"> {{ q.answer_set.count }} </div>
+                      </div>
+                      <div class="row">
+                        {% blocktrans count q.answer_set.count as q_ans %}
+                          <div style="margin: auto;" class="text-info"> Answer </div>
+                          {% plural %}
+                          <div style="margin: auto;" class="text-info"> Answers </div>
+                        {% endblocktrans %} 
+                      </div>
+                    </div>
+                    <div style=" border-radius: 5px;" class="col-3 mx-2">
+                      <div  class="row mt-1">
+                        <div class="text-success" style="margin: auto;"> {{ q.upvotes.count }} </div>
+                      </div>
+                      <div class="row">
+                        {% blocktrans count q.upvotes.count as q_upvotes %}
+                          <div style="margin: auto;" class="text-success"> Upvote </div>
+                          {% plural %}
+                          <div style="margin: auto;" class="text-success"> Upvotes </div>
+                        {% endblocktrans %} 
+                      </div>
+                    </div>
+                    <div style=" border-radius: 5px;" class="col-3 mx-2">
+                      <div  class="row mt-1">
+                        <div class="text-danger" style="margin: auto;">1</div>
+                      </div>
+                      <div class="row">
+                        {% blocktrans count q.downvotes.count as q_downvotes %}
+                          <div style="margin: auto;" class="text-danger"> Downvote </div>
+                          {% plural %}
+                          <div style="margin: auto;" class="text-danger"> Downvotes </div>
+                        {% endblocktrans %} 
+                      </div>
+                    </div>
+                  </div>
+                  </div> 
+                </div>
               </div>
             </article>
           </div>

@@ -30,13 +30,18 @@
         </div>
             <p class="article-title">{{ question.question|safe }}</p>
             {% if user != question.author %}
-            <form action="{% url 'question-upvote' object.id %}" method="POST">
-                {% csrf_token %}
                 <div class="row">
-                    <button type="submit" class="btn btn-success btn-sm m-2"> {{ question.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
-                    <button type="submit" class="btn btn-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
+                    <form action="{% url 'question-upvote' object.id %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" class="btn btn-success btn-sm m-2"> {{ question.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
+                    </form>
+                    <form action="{% url 'question-downvote' object.id %}" method="POST">
+                        {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}">
+                            <button type="submit" class="btn btn-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
+                    </form>
                 </div>
-            </form>
             {% endif %}
         </div>
     </article>

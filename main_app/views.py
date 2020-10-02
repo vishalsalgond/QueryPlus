@@ -96,13 +96,27 @@ class QuestionDetailView(DetailView):
         context["answers"] = Answer.objects.filter(answered_to=context["question"])
         context["count"] =  Answer.objects.filter(answered_to=context["question"]).count()
         return context 
-    
+
+
+@login_required  
 def UpvoteQuestion(request, pk, **kwargs):
     if request.method == 'POST':
         print(pk)
         question = get_object_or_404(Question, id=pk)
         question.upvotes.add(request.user)
-        return HttpResponseRedirect(question.get_absolute_url())   
+        # return HttpResponseRedirect(question.get_absolute_url()) 
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next) 
+
+
+@login_required
+def DownvoteQuestion(request, pk, **kwargs):
+    if request.method == 'POST':
+        print(pk)
+        question = get_object_or_404(Question, id=pk)
+        question.downvotes.add(request.user)
+        next = request.POST.get('next', '/')
+        return HttpResponseRedirect(next)  
 
 
 class QuestionDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
