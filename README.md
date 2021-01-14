@@ -45,6 +45,35 @@ $ python manage.py runserver
 * There is CKEditor plugin integration, so if you write some code in your question/answer
 it will be posted with proper syntax highlighting for that language.
 
+---
+
+## QueryPlus Screenshots
+
+<div align="center">
+<h4 align="center">Homepage</h4>
+<img src="./snapshots/1.JPG" width=900px/>
+<br>
+<img src="./snapshots/2.JPG" width=900px/>
+<br>
+<h4 align="center">Sign In Page</h4>
+<img src="./snapshots/3.JPG" width=900px/>
+<br>
+<h4 align="center">Questions Page</h4>
+<img src="./snapshots/4.JPG" width=900px/>
+<br>
+<h4 align="center">Question Detail Page</h4>
+<img src="./snapshots/5.JPG" width=900px/>
+<br>
+<h4 align="center">Answer Detail</h4>
+<img src="./snapshots/6.JPG" width=900px/>
+<br>
+<h4 align="center">Ask Question</h4>
+<img src="./snapshots/7.JPG" width=900px/>
+<br>
+</div>
+
+---
+
 ## Contributing
 
 I love contributions, so please feel free to fix bugs, improve things, provide documentation. Just send a pull request.
