@@ -3,14 +3,15 @@
 {% block content %}
     <div class="container pt-5 align-items-center">
         <h4 class="alert alert-success mb-3 mx-5">You have been succeessfully logged out!</h4>
-        <div class="row">
+        {% comment %} <div class="row">
             <img style="height: 350px; width: 350px; margin: auto;" src="{% static 'main_app/rocket1.png' %}" alt="">
         </div>
         <div class="row mt-3 pt-2">
-            <a style="margin: auto;" href="{% url 'login' %}">Sign In Again</a>
-        </div>
+            
+        </div> {% endcomment %}
 
         <div class="row">
+            <a style="margin: auto;" class="btn btn-primary mt-3 mb-1" href="{% url 'login' %}">Sign In Again</a>
             <a style="margin: auto;" class="btn btn-primary mt-3 mb-1" href="{% url 'home' %}">Back to home page</a>
         </div>
     </div>

@@ -1,32 +1,34 @@
 {% extends "main_app/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-{% for question in questions|slice:":1" %}
-    <div class="content-section">
-    <div class="media">
-        <img class="rounded-circle account-img" src="{{ question.author.profile.image.url }}">
-        <div class="media-body">
-          <br>
-          <h2 class="account-heading">{{ question.author.first_name }} {{ question.author.last_name }}</h2>
-          <p class="text-secondary">@{{ view.kwargs.username }} </p>
-        </div>
-    </div>
-    </div>
-    <h3> <b>Questions by {{ view.kwargs.username }}</b> </h3>
-    <br>
-{% endfor %}
 
-{% for question in questions %}
-    <article class="media content-section">
-        <img class="rounded-circle article-img" src="{{ question.author.profile.image.url }}" alt="">
-        <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="{% url 'user-profile' question.author.username %}">{{ question.author }}</a>
-            <small class="text-muted">asked {{ question.date_posted|timesince }} ago</small>
+<div class="container mt-5">
+    {% for question in questions|slice:":1" %}
+        <div class="content-section">
+        <div class="media">
+            <img class="rounded-circle account-img" src="{{ question.author.profile.image.url }}">
+            <div class="media-body">
+            <br>
+            <h2 class="account-heading">{{ question.author.first_name }} {{ question.author.last_name }}</h2>
+            <p class="text-secondary">@{{ view.kwargs.username }} </p>
+            </div>
         </div>
-        <h4><a class="article-title" href="{% url 'question-detail' question.id %}"><b>{{ question.question|safe }}</b></a></h4>
         </div>
-    </article>
-{% endfor %}
+        <h3> <b>Questions by {{ view.kwargs.username }}</b> </h3>
+        <br>
+    {% endfor %}
 
+    {% for question in questions %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ question.author.profile.image.url }}" alt="">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'user-profile' question.author.username %}">{{ question.author }}</a>
+                <small class="text-muted">asked {{ question.date_posted|timesince }} ago</small>
+            </div>
+            <h4><a class="article-title" href="{% url 'question-detail' question.id %}"><b>{{ question.question|safe }}</b></a></h4>
+            </div>
+        </article>
+    {% endfor %}
+</div>
 {% endblock content %}

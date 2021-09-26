@@ -19,9 +19,23 @@
             {{ p_form|crispy }}
         </fieldset>
         <div class="form-group">
-            <button class="btn btn-primary type="submit">Update</button>
+            <button class="btn btn-primary" type="submit">Update</button>
         </div>
     </form>
+
+    {% for question in questions %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ question.author.profile.image.url }}" alt="">
+            <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'user-profile' question.author.username %}">{{ question.author }}</a>
+                <small class="text-muted">asked {{ question.date_posted|timesince }} ago</small>
+            </div>
+            <h4><a class="article-title" href="{% url 'question-detail' question.id %}"><b>{{ question.question|safe }}</b></a></h4>
+            </div>
+        </article>
+    {% endfor %}
+    
     </div>
   </div>
 {% endblock content %}

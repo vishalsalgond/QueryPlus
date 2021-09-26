@@ -23,6 +23,7 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+
 class Question(models.Model):
     title = models.CharField(max_length=100, null=True)
     question = RichTextField()
