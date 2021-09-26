@@ -3,11 +3,10 @@ on: push
 
 jobs:
   test_project:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Run Django unit tests
       run: |
-        env\Scripts\activate
-        pip3 install --user django
+        pip install -r requirements.txt
         python3 manage.py test
