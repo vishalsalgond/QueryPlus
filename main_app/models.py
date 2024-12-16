@@ -23,28 +23,43 @@ class Profile(models.Model):
             img.thumbnail(output_size)
             img.save(self.image.path)
 
+class VoteMixin(models.Model):
+    """
+    Abstract model for reusable voting functionality.
+    """
+    upvotes = models.ManyToManyField(User, related_name="%(class)s_upvotes", blank=True)
+    downvotes = models.ManyToManyField(User, related_name="%(class)s_downvotes", blank=True)
 
-class Question(models.Model):
+    class Meta:
+        abstract = True
+
+    def total_upvotes(self):
+        return self.upvotes.count()
+
+    def total_downvotes(self):
+        return self.downvotes.count()
+
+
+class Question(VoteMixin):
+    """
+    Represents a question posted by a user.
+    """
     title = models.CharField(max_length=100, null=True)
     question = RichTextField()
     date_posted = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    upvotes = models.ManyToManyField(User, related_name='question_upvotes', blank=True)
-    downvotes = models.ManyToManyField(User, related_name='question_downvotes', blank=True)
-
-    # def __str__(self):
-    #     return self.upvotes
 
     def get_absolute_url(self):
         return reverse('home')
 
-class Answer(models.Model):
+class Answer(VoteMixin):
+    """
+    Represents an answer posted to a question by a user.
+    """
     content = RichTextField(blank=True, null=True)
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     answered_to = models.ForeignKey(Question, on_delete=models.CASCADE)
-    upvotes = models.ManyToManyField(User, related_name='answer_upvotes', blank=True)
-    downvotes = models.ManyToManyField(User, related_name='answer_downvotes', blank=True)
 
     def __str__(self):
         return f'{self.content} {self.answered_to}'

@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% load i18n %}
 {% block content %}
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>       
+    <script src="https://kit.fontawesome.com/d034eb9bba.js" crossorigin="anonymous"></script>      
     <!-- Question content -->
     <div style="margin-bottom: 100px;" class="container">
     <article class="media content-section mt-5 bg-light">
@@ -34,25 +34,17 @@
                     <form action="{% url 'question-upvote' object.id %}" method="POST">
                         {% csrf_token %}
                             {% if user not in question.upvotes.all %}
-                                {% if user in question.downvotes.all %}
-                                    <a id="example" role="button" class="btn btn-outline-success btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ question.upvotes.count }} <i class='fas fa-arrow-down'></i></a>
-                                {% else %}
-                                    <input type="hidden" name="next" value="{{ request.path }}">
-                                    <button type="submit" class="btn btn-outline-success btn-sm m-2"> {{ question.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
-                                {% endif %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-outline-success btn-sm m-2"> {{ question.upvotes.count }} <i class="fa-solid fa-arrow-up"></i></button>
                             {% else %}
-                                <button type="submit" class="btn btn-success btn-sm m-2"> {{ question.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
+                                <button type="submit" class="btn btn-success btn-sm m-2"> {{ question.upvotes.count }} <i class="fa-solid fa-arrow-up"></i></button>
                             {% endif %}
                     </form>
                     <form action="{% url 'question-downvote' object.id %}" method="POST">
                         {% csrf_token %}
                             {% if user not in question.downvotes.all %}
-                                {% if user in question.upvotes.all %}
-                                    <a id="example" role="button" class="btn btn-outline-danger btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></a>
-                                {% else %}
-                                    <input type="hidden" name="next" value="{{ request.path }}">
-                                    <button type="submit" class="btn btn-outline-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
-                                {% endif %}
+                                <input type="hidden" name="next" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-outline-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
                             {% else %}
                                 <button type="button" class="btn btn-danger btn-sm m-2"> {{ question.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
                             {% endif %}
@@ -100,12 +92,8 @@
                         <form action="{% url 'answer-upvote' ans.id %}" method="POST">
                             {% csrf_token %}
                                 {% if user not in ans.upvotes.all %}
-                                    {% if user in ans.downvotes.all %}
-                                        <a id="example" role="button" class="btn btn-outline-success btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ ans.upvotes.count }} <i class='fas fa-arrow-down'></i></a>
-                                    {% else %}
-                                        <input type="hidden" name="next" value="{{ request.path }}">
-                                        <button type="submit" class="btn btn-outline-success btn-sm m-2"> {{ ans.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
-                                    {% endif %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <button type="submit" class="btn btn-outline-success btn-sm m-2"> {{ ans.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
                                 {% else %}
                                     <button type="submit" class="btn btn-success btn-sm m-2"> {{ ans.upvotes.count }} <i class='fas fa-arrow-up'></i></button>
                                 {% endif %}
@@ -113,12 +101,8 @@
                         <form action="{% url 'answer-downvote' ans.id %}" method="POST">
                             {% csrf_token %}
                                 {% if user not in ans.downvotes.all %}
-                                    {% if user in ans.upvotes.all %}
-                                        <a id="example" role="button" class="btn btn-outline-danger btn-sm m-2" data-container="body" data-toggle="popover" data-trigger="focus" data-placement="right" data-content="You have already upvoted the answer"> {{ ans.downvotes.count }} <i class='fas fa-arrow-down'></i></a>
-                                    {% else %}
-                                        <input type="hidden" name="next" value="{{ request.path }}">
-                                        <button type="submit" class="btn btn-outline-danger btn-sm m-2"> {{ ans.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
-                                    {% endif %}
+                                    <input type="hidden" name="next" value="{{ request.path }}">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm m-2"> {{ ans.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
                                 {% else %}
                                     <button type="button" class="btn btn-danger btn-sm m-2"> {{ ans.downvotes.count }} <i class='fas fa-arrow-down'></i></button>
                                 {% endif %}

@@ -102,6 +102,8 @@ class QuestionDetailView(DetailView):
 def UpvoteQuestion(request, pk, **kwargs):
     if request.method == 'POST':
         question = get_object_or_404(Question, id=pk)
+        if request.user in question.downvotes.all():
+            question.downvotes.remove(request.user)
         question.upvotes.add(request.user)
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next) 
@@ -111,6 +113,8 @@ def UpvoteQuestion(request, pk, **kwargs):
 def DownvoteQuestion(request, pk, **kwargs):
     if request.method == 'POST':
         question = get_object_or_404(Question, id=pk)
+        if request.user in question.upvotes.all():
+            question.upvotes.remove(request.user)
         question.downvotes.add(request.user)
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)  
@@ -119,6 +123,8 @@ def DownvoteQuestion(request, pk, **kwargs):
 def UpvoteAnswer(request, pk, **kwargs):
     if request.method == 'POST':
         answer = get_object_or_404(Answer, id=pk)
+        if request.user in answer.downvotes.all():
+            answer.downvotes.remove(request.user)
         answer.upvotes.add(request.user)
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next) 
@@ -128,6 +134,8 @@ def UpvoteAnswer(request, pk, **kwargs):
 def DownvoteAnswer(request, pk, **kwargs):
     if request.method == 'POST':
         answer = get_object_or_404(Answer, id=pk)
+        if request.user in answer.upvotes.all():
+            answer.upvotes.remove(request.user)
         answer.downvotes.add(request.user)
         next = request.POST.get('next', '/')
         return HttpResponseRedirect(next)  
